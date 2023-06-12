@@ -1,0 +1,39 @@
+<section>
+    <h2>Ajouter des données</h2>
+    <div class="d-flex justify-content-center">
+
+        <form class="container h-100" action="index.php" method="post">
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <input type="text" class="form-control" placeholder="Prénom" name="firstname">
+                </div>
+<br>
+                <div class="form-group col-md-6">
+                    <input type="text" class="form-control" placeholder="Nom" name="lastname">
+                </div>
+<br>
+                <div class="form-group col-md-6">
+                    <label for="old">Age (18 à 70 ans)</label>
+                    <input name="old" type="number" class="form-control" placeholder="Renseignez votre age">
+                </div>
+<br>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend"><span class="input-group-text">Taille (1.26m à 3m)</span></div>
+                    <input type="number" class="form-control" aria-label="Somme arrondie">
+                    <div class="input-group-append"><span class="input-group-text">cm</span></div>
+                </div>
+<br>
+                <div class="form-group col-md-4">
+                    <input name="sexe" type="radio" id="Femme" value="F">
+                    <label for="Femme">Femme</label>
+                    <input name="sexe" type="radio" id="Homme" value="H">
+                    <label for="Homme">Homme</label>
+                    <input name="sexe" type="radio" id="Autre" value="A">
+                    <label for="Autre">Autre</label>
+                </div>
+            </div>
+<br>
+            <input type="submit" class="btn btn-primary" value="Enregistrer les données">
+        </form>
+    </div>
+</section>
