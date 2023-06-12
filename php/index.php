@@ -3,26 +3,42 @@
 <?php include 'includes/head.inc.html'; ?>
 
 <?php include 'includes/header.inc.html'; ?>
+<div class='container'>
+    <div class='row'>
 
-<div class="d-inline-flex p-1">
+        <div class='col'><?php include 'includes/ul.inc.php'; ?></div>
 
-<?php include 'includes/ul.inc.php' ?>
+        <div class='col'><a id="id" href="?idPage=form" type="button" class="btn btn-primary btn-lg">Ajouter des données</a></div>
 
-<button href="?idPage=form" type="button" class="btn btn-primary btn-lg">  Ajouter des données</button>
+        <div class='col'><?php if (isset($_GET["idPage"])) {
+            switch($_GET['idPage']) {
+                case 'form':
+                    echo '<style>#id { display:none;}</style>';
+                    include "./includes/form.inc.html";
+                    break;
+                case 'debug':
+                    echo '<style>#id { display:none;}</style>';
+                    $table = $_POST;
+                    var_dump($table);
+                    break;
+                case 'concat':
+                    echo '<style>#id { display:none;}</style>';
+                    break;
+                case 'bouc':
+                    echo '<style>#id { display:none;}</style>';
+                    break;
+                case 'fonc':
+                    echo '<style>#id { display:none;}</style>';
+                    break;
+                default:
+                include("./includes/404.html");
+        }}?>
+        </div>
+        
+    </div>
+    
 
-<?php
-if (isset($_GET["idPage"])) {
-    switch($_GET['idPage']) {
-        case 'form':
-            include "./includes/form.inc.html";
-            break;
-        default:
-            include("./includes/404.inc.html");
-    }
-    }else {
-        include "./includes/form2.inc.html";
-    }
-?>
+
 </div>
 
 
