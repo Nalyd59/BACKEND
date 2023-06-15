@@ -108,7 +108,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 case 'supp':
 
                     session_destroy();
-                    echo '<br><br>Données supprimer !!';
+                    echo '<br><br><div class=" d-flex justify-content-center alert alert-dismissible alert-success">Données Supprimées</div>';
                     echo '<style>#hide {display:none};</style>';
                     break;
 
@@ -117,7 +117,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
             if (!empty($_POST['donnees'])) {
                 # code...
-                echo '<br><br>donnees enregistrer !!';
+                echo '<br><br><div class=" d-flex justify-content-center alert alert-dismissible alert-success">Données Sauvegardées</div>';
             }
             ?>
         </div>
