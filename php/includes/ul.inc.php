@@ -1,6 +1,8 @@
 <nav>
     <div class="list-group">
+
     <a type="button" class="btn btn-secondary btn-lg" class="list-group-item list-group-item-action active" href="/" >Home</a>
+
     <a type="button" class="list-group-item list-group-item-action" href="?idPage=debug" >Debogage</a>
     <a type="button" class="list-group-item list-group-item-action" href="?idPage=concat" >Concatenation</a>
     <a type="button" class="list-group-item list-group-item-action" href="?idPage=bouc" >Boucles</a>
