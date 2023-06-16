@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         
 
-        if (is_numeric($prenom) !== true && is_numeric($nom) !== true && is_numeric($age) == true && is_numeric($taille) == true) {
+        if (is_numeric($prenom) !== true && is_numeric($nom) !== true && is_int($age) == true && is_numeric($taille) == true) {
             # code..
             $table = array();
             $table['firstname'] = $prenom;
@@ -28,9 +28,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             
             $_SESSION['table'] = $table;
 
-        } elseif (is_string($prenom) !== true || is_string($nom) !== true || is_numeric($age) !== true || is_numeric($taille) !== true) {
+        } elseif (is_string($prenom) !== true || is_string($nom) !== true || is_int($age) !== true || is_numeric($taille) !== true) {
             # code...
-            echo '<br><br><div class=" d-flex justify-content-center alert alert-dismissible alert-success">Données ERRONEES</div>';
+            session_destroy();
         }
         
 }
@@ -120,10 +120,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 case 'supp':
 
-                    session_destroy();
-                    echo '<br><br><div class=" d-flex justify-content-center alert alert-dismissible alert-success">Données Supprimées</div>';
-                    echo '<style>#hide {display:none};</style>';
+                    
+                    echo '<br><br><div class=" d-flex justify-content-center alert alert-dismissible alert-success">Données Supprimées</div>';session_destroy();
                     break;
+                case 'home':
+
+                    session_destroy();
 
                 default:
             }
