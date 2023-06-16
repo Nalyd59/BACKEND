@@ -1,23 +1,38 @@
 <?php
 
 session_start();
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
+
+
+// $utilisateur = setcookie( 'utilisateur', '' , time() + 3600, '/', '/', false, true); 
+
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    
         $prenom = $_POST['firstname'];
         $nom = $_POST['lastname'];
         $age = $_POST['old'];
         $taille = $_POST['size'];
         $genre = $_POST['sexe'];
 
-        $table = array();
+        
 
-        $table['firstname'] = $prenom;
-        $table['lastname'] = $nom;
-        $table['old'] = $age;
-        $table['size'] = $taille;
-        $table['sexe'] = $genre;
+        if (is_numeric($prenom) !== true && is_numeric($nom) !== true && is_numeric($age) == true && is_numeric($taille) == true) {
+            # code..
+            $table = array();
+            $table['firstname'] = $prenom;
+            $table['lastname'] = $nom;
+            $table['old'] = $age;
+            $table['size'] = $taille;
+            $table['sexe'] = $genre;
+            
+            $_SESSION['table'] = $table;
 
-    $_SESSION['table'] = $table;
+        } elseif (is_string($prenom) !== true || is_string($nom) !== true || is_numeric($age) !== true || is_numeric($taille) !== true) {
+            # code...
+            echo '<br><br><div class=" d-flex justify-content-center alert alert-dismissible alert-success">Données ERRONEES</div>';
+        }
+        
 }
 
 ?>
@@ -34,20 +49,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
 
         <div class='col-9'>
-            <a id="id" href="?idPage=form" type="button" class="btn btn-primary btn-lg" name='donnees'>Ajouter des données</a>
+            <a id="id" href="?id=form" type="button" class="btn btn-primary btn-lg" name='donnees'>Ajouter des données</a>
             <?php
             
             if (empty($table)) {
-                # code...
                 echo '<style>#hide {visibility: hidden;};</style>';
             }else {
-                # code...
                 echo '<style>#id {visibility: visible;};</style>';
             }
 
-            if (isset($_GET["idPage"])) {
+            if (isset($_GET['id'])) {
                 
-                switch($_GET['idPage']) {
+                switch($_GET['id']) {
 
                 case 'form':
 
@@ -115,10 +128,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 default:
             }
             }
-            if (!empty($_POST['donnees'])) {
-                # code...
+            if (!empty($table)) {
                 echo '<br><br><div class=" d-flex justify-content-center alert alert-dismissible alert-success">Données Sauvegardées</div>';
             }
+
             ?>
         </div>
 
