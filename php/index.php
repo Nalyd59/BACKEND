@@ -2,28 +2,59 @@
 
 session_start();
 
-
-
-// $utilisateur = setcookie( 'utilisateur', '' , time() + 3600, '/', '/', false, true); 
-
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
-    function valid_donnees($donnees){
+    function valid_int($donnees){
+        $donnees = trim($donnees);
+        $donnees = stripslashes($donnees);
+        $donnees = htmlspecialchars($donnees);
+        if (!ctype_digit($donnees)) {
+            session_destroy();
+            echo '<br><br><div class=" d-flex justify-content-center alert alert-dismissible alert-success">Données ERRORER</div>';
+        }
+        return $donnees;
+    }
+    function valid_float($donnees){
         $donnees = trim($donnees);
         $donnees = stripslashes($donnees);
         $donnees = htmlspecialchars($donnees);
         if (!is_numeric($donnees)) {
             session_destroy();
+            echo '<br><br><div class=" d-flex justify-content-center alert alert-dismissible alert-success">Données ERRORER</div>';
         }
         return $donnees;
     }
+    function valid_string($donnees){
+        $donnees = trim($donnees);
+        $donnees = stripslashes($donnees);
+        $donnees = htmlspecialchars($donnees);
+        if (!ctype_alpha($donnees)) {
+            session_destroy();
+            echo '<br><br><div class=" d-flex justify-content-center alert alert-dismissible alert-success">Données ERRORER</div>';
+        }
+        return $donnees;
+    }
+    function valid_img($donnees){
 
-    $prenom = $_POST['firstname'];
-    $nom = $_POST['lastname'];
-    $age = valid_donnees($_POST['old']);
-    $taille = valid_donnees($_POST['size']);
+        $path = 'uploaded/'.$_FILES['photo']['name'];
+
+        if(empty($donnees) || pathinfo($path)['extension'] == 'pdf'){
+            session_destroy();
+            echo "<script>alert('image incorrect')</script>";
+        }else{move_uploaded_file($_FILES['photo']['tmp_name'], $path);}
+        return $donnees;
+    }
+
+    $prenom = valid_string($_POST['firstname']);
+    $nom = valid_string($_POST['lastname']);
+    $age = valid_int($_POST['old']);
+    $taille = valid_float($_POST['size']);
     $genre = $_POST['sexe'];
+    $color = $_POST['color'];
+    $birth = $_POST['birth'];
+    $img = valid_img($_FILES['photo']['name']);
+    
+    
 
     $table = array();
 
@@ -32,14 +63,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $table['old'] = $age;
     $table['size'] = $taille;
     $table['sexe'] = $genre;
+    $table['color'] = $color;
+    $table['birth'] = $birth;
+    $table['image'] = $img;
 
     $_SESSION['table'] = $table;
-    if (!empty($table['age'])) {
-        # code...
-        echo '<br><br><div class=" d-flex justify-content-center alert alert-dismissible alert-success">Données Sauvegarder</div>';
-    }else{
-        echo '<br><br><div class=" d-flex justify-content-center alert alert-dismissible alert-success">Données ERRORER</div>';
-    }
+
 }
 ?>
 
@@ -56,6 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <div class='col-9'>
             <a id="id" href="?id=form" type="button" class="btn btn-primary btn-lg" name='donnees'>Ajouter des données</a>
+            <a id="id" href="?id=form2" type="button" class="btn btn-primary btn-lg" name='donnees'>Ajouter plus des données</a>
             <?php
             
             if (isset($_GET['id'])) {
@@ -66,6 +96,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                     echo '<style>#id {display:none};</style>';
                     include "./includes/form.inc.html";
+                    break;
+
+                case 'form2':
+                    echo '<style>#id {display:none};</style>';
+                    include "./includes/form2.inc.php";
                     break;
 
                 case 'debug':
@@ -81,6 +116,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         echo '<pre>';
                         print_r($_SESSION['table']);
                         echo '</pre>';
+                        
                     }
 
                     break;
